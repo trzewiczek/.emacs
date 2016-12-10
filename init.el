@@ -12,24 +12,25 @@
 (setq package-archive-enable-alist '(("melpa" deft magit)))
 
 ;; install default packages
-(defvar singup/packages '(auto-complete 
-			  autopair
-			  deft
-			  expand-region
-			  flycheck
-			  htmlize
-			  magit
-			  magithub
-			  markdown-mode
-			  marmalade
-			  org
-			  python
-			  rainbow-mode
-			  smex
-			  solarized-theme
-			  volatile-highlights
-			  writegood-mode
-			  zenburn-theme)
+(defvar singup/packages
+  '(auto-complete
+    autopair
+    deft
+    expand-region
+    flycheck
+    htmlize
+    magit
+    magithub
+    markdown-mode
+    marmalade
+    org
+    python
+    rainbow-mode
+    smex
+    solarized-theme
+    volatile-highlights
+    writegood-mode
+    zenburn-theme)
   "List of default packages")
 
 (defun singup/packages-installed-p ()
@@ -95,7 +96,6 @@
 (global-set-key (kbd "C-+")   'text-scale-increase)
 (global-set-key (kbd "C--")   'text-scale-decrease)
 (global-set-key (kbd "C-x g") 'magit-status)
-
 
 ;; dialoging with emacs
 (setq echo-keystrokes 0.1
