@@ -118,7 +118,7 @@
 
 ;; todo --> inprogress --> done
 (setq org-todo-keywords      '((sequence "TODO" "INPROGRESS" "DONE"))
-      org-todo-keyword-faces '(("INPROGRESS" . (:foreground "blue" :weight bold))))
+      org-todo-keyword-faces '(("INPROGRESS" . (:foreground "#73aed6" :weight bold))))
 
 ;; agenda settings
 (global-set-key (kbd "C-c a") 'org-agenda)
