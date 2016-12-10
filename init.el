@@ -108,6 +108,10 @@
 
 ;; org-mode configuration
 ;; ----------------------
+(defvar org-mode-env
+  (if (y-or-n-p "Are you at home?")
+      (progn "~/org-mode-home")
+    (progn "~/org-mode-work")))
 
 ;; clean view
 (setq org-startup-indented t)
@@ -122,7 +126,7 @@
 
 ;; agenda settings
 (global-set-key (kbd "C-c a") 'org-agenda)
-(setq org-agenda-files '("~/org"))
+(setq org-agenda-files (cons org-mode-env '()))
 (setq org-startup-indented t)
 
 ;; add abbreviations to org-mode
@@ -132,7 +136,7 @@
 
 ;; deft configuration
 ;; ------------------
-(setq deft-directory "~/org")
+(setq deft-directory 'org-mode-env)
 (setq deft-use-filename-as-title t)
 (setq deft-extension "org")
 (setq deft-text-mode 'org-mode)
