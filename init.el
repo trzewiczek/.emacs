@@ -106,6 +106,9 @@
 ;; org-mode configuration
 ;; ----------------------
 
+;; clean view
+(setq org-startup-indented t)
+
 ;; english spelling and style
 (add-hook 'org-mode-hook (lambda () (flyspell-mode)))
 (add-hook 'org-mode-hook (lambda () (writegood-mode)))
@@ -117,7 +120,7 @@
 ;; agenda settings
 (global-set-key (kbd "C-c a") 'org-agenda)
 (setq org-agenda-files '("~/org"))
-
+(setq org-startup-indented t)
 
 ;; add abbreviations to org-mode
 (add-hook 'org-mode-hook (lambda () (abbrev-mode 1)))
