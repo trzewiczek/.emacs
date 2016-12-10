@@ -67,6 +67,9 @@
 (setq column-number-mode t)
 (setq-default show-trailing-whitespace t)
 (load-theme 'zenburn t)
+(if (eq system-type 'gnu/linux)
+    (set-default-font "Inconsolata-11")
+  (set-default-font "Consolas-10"))
 
 ;; intuitive selecting and copy/pasting text
 (delete-selection-mode t)
@@ -167,3 +170,4 @@
 (require 'autopair)
 (require 'auto-complete-config)
 (ac-config-default)
+
