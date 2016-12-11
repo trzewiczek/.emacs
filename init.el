@@ -169,7 +169,10 @@
 
 ;; spellchecking
 (setq flyspell-issue-welcome-flag nil)
-(setq-default ispell-program-name "/usr/bin/aspell")
+(if (eq system-type 'gnu/linux)
+    (setq-default ispell-program-name "/usr/bin/aspell")
+  ;; TODO add ispell path on windows
+  (setq-default ispell-program-name ""))
 (setq-default ispell-list-command "list")
 
 
