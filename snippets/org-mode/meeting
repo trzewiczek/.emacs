@@ -1,0 +1,10 @@
+# name: meeting template
+# key: meet
+# --
+ Meeting :: ${title}
+** Attendees :: ${attendees}
+** Goal :: ${goal}
+** Key points
+__^..^__
+** Actions
+__^..^__

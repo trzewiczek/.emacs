@@ -9,7 +9,7 @@
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
 ;; take deft and magit from melpa
-(setq package-archive-enable-alist '(("melpa" deft magit)))
+(setq package-archive-enable-alist '(("melpa" deft magit yasnippet)))
 
 ;; install default packages
 (defvar singup/packages
@@ -30,6 +30,7 @@
     solarized-theme
     volatile-highlights
     writegood-mode
+    yasnippet
     zenburn-theme)
   "List of default packages")
 
@@ -129,9 +130,11 @@
 (setq org-agenda-files (cons org-mode-env '()))
 (setq org-startup-indented t)
 
-;; add abbreviations to org-mode
-(add-hook 'org-mode-hook (lambda () (abbrev-mode 1)))
-;; TODO define soem templates
+;; yasnippet configuration
+;; -----------------------
+(require 'yasnippet)
+(setq yas-snippet-dirs '("~/.emacs.d/snippets"))
+(yas-global-mode 1)
 
 
 ;; deft configuration
