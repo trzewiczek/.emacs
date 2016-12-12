@@ -2,13 +2,14 @@
 (setq user-mail-address "krzysztof@singup.pl")
 
 ;; packages management
+;; ----------------------------------------------------------------------------
 (load "package")
 (package-initialize)
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
-;; take deft and magit from melpa
+;; selected packeges take from melpa
 (setq package-archive-enable-alist '(("melpa" deft magit yasnippet)))
 
 ;; install default packages
@@ -48,71 +49,84 @@
       (package-install p))))
 
 
-
-
-;; put all backup and auto-save files in /tmp
+;; backup fails and autosaves
+;; ----------------------------------------------------------------------------
 (setq backup-directory-alist
       `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
 
 
-;; start in clean *scratch* buffer with org-mode on
+;; clean starup into org mode
+;; ----------------------------------------------------------------------------
 (setq inhibit-splash-screen t
       initial-scratch-message nil
       initial-major-mode 'org-mode)
 
-;; some gui tweaks
+
+;; gui tweaks
+;; ----------------------------------------------------------------------------
 (scroll-bar-mode -1)
 (tool-bar-mode   -1)
 (menu-bar-mode   -1)
 (setq column-number-mode t)
-(setq-default show-trailing-whitespace t)
+
+;; estetics
 (load-theme 'zenburn t)
-(if (eq system-type 'gnu/linux)
-    (set-default-font "Inconsolata-11")
-  (set-default-font "Consolas-10"))
+(set-default-font "Inconsolata-11")
 
-;; intuitive selecting and copy/pasting text
-(delete-selection-mode t)
-(transient-mark-mode t)
-(setq x-select-enable-clipboard t)
-
-;; emapty line markers
+;; highligh empty lines and trailing whitespaces
 (setq-default indicate-empty-lines t)
 (when (not indicate-empty-lines)
   (toggle-indicate-empty-lines))
+(setq-default show-trailing-whitespace t)
 
 ;; indentation
 (setq tab-width 2
       indent-tabs-mode nil)
 
-;; yes or no questions shortened
-(defalias 'yes-or-no-p 'y-or-n-p)
-
-;; keybindings
-(global-set-key (kbd "RET")   'newline-and-indent)
-(global-set-key (kbd "C-;")   'comment-or-uncomment-region)
-(global-set-key (kbd "M-/")   'hippie-expand)
-(global-set-key (kbd "C-+")   'text-scale-increase)
-(global-set-key (kbd "C--")   'text-scale-decrease)
-(global-set-key (kbd "C-x g") 'magit-status)
-
-;; dialoging with emacs
-(setq echo-keystrokes 0.1
-      use-dialog-box  nil
-      visible-bell    t)
-
 ;; highlight matching parens
 (show-paren-mode t)
 
 
+;; dialoging with emacs
+;; ----------------------------------------------------------------------------
+(setq echo-keystrokes 0.1
+      use-dialog-box  nil
+      visible-bell    t)
+
+;; yes or no questions shortened
+(defalias 'yes-or-no-p 'y-or-n-p)
+
+
+;; intuitive selecting and copy/pasting
+;; ----------------------------------------------------------------------------
+(delete-selection-mode t)
+(transient-mark-mode t)
+(setq x-select-enable-clipboard t)
+
+
+;; keybindings
+;; ----------------------------------------------------------------------------
+(global-set-key (kbd "RET") 'newline-and-indent)
+(global-set-key (kbd "C-;") 'comment-or-uncomment-region)
+(global-set-key (kbd "C-+") 'text-scale-increase)
+(global-set-key (kbd "C--") 'text-scale-decrease)
+
+;; magit
+(global-set-key (kbd "C-x g") 'magit-status)
+
+;; org-mode agenda
+(global-set-key (kbd "C-c a") 'org-agenda)
+
+;; smaex
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+
+
 ;; org-mode configuration
-;; ----------------------
-(defvar org-mode-env
-  (if (y-or-n-p "Are you at home?")
-      (progn "~/org-mode-home")
-    (progn "~/org-mode-work")))
+;; ----------------------------------------------------------------------------
+(defvar org-mode-env "~/org")
 
 ;; clean view
 (setq org-startup-indented t)
@@ -126,39 +140,40 @@
       org-todo-keyword-faces '(("INPROGRESS" . (:foreground "#73aed6" :weight bold))))
 
 ;; agenda settings
-(global-set-key (kbd "C-c a") 'org-agenda)
 (setq org-agenda-files (cons org-mode-env '()))
 (setq org-startup-indented t)
 
+
 ;; yasnippet configuration
-;; -----------------------
+;; ----------------------------------------------------------------------------
 (require 'yasnippet)
 (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
 (yas-global-mode 1)
 
 
 ;; deft configuration
-;; ------------------
+;; ----------------------------------------------------------------------------
 (setq deft-directory 'org-mode-env)
 (setq deft-use-filename-as-title t)
 (setq deft-extension "org")
 (setq deft-text-mode 'org-mode)
 
+
 ;; smex configuration
-;; ------------------
+;; ----------------------------------------------------------------------------
 (setq smex-save-file (expand-file-name ".smex-items" user-emacs-directory))
 (smex-initialize)
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+
 
 ;; ido configuration
-;; -----------------
+;; ----------------------------------------------------------------------------
 (ido-mode t)
 (setq ido-enable-flex-matching t
       ido-use-virtual-buffers t)
 
-;; markdown mode
-;; -------------
+
+;; markdown configuration
+;; ----------------------------------------------------------------------------
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 (add-hook 'markdown-mode-hook (lambda ()
 				(visual-line-mode t)
@@ -166,18 +181,15 @@
 				(flyspell-mode t)))
 
 
-
-;; spellchecking
+;; flyspell configuration
+;; ----------------------------------------------------------------------------
 (setq flyspell-issue-welcome-flag nil)
-(if (eq system-type 'gnu/linux)
-    (setq-default ispell-program-name "/usr/bin/aspell")
-  ;; TODO add ispell path on windows
-  (setq-default ispell-program-name ""))
+(setq-default ispell-program-name "/usr/bin/aspell")
 (setq-default ispell-list-command "list")
 
 
-;; and some more...
+;; misc things
+;; ----------------------------------------------------------------------------
 (require 'autopair)
 (require 'auto-complete-config)
 (ac-config-default)
-
