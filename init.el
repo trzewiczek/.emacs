@@ -118,6 +118,7 @@
 
 ;; org-mode agenda
 (global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c l") 'org-store-link)
 
 ;; smaex
 (global-set-key (kbd "M-x") 'smex)
