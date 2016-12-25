@@ -187,7 +187,7 @@
 (setq flyspell-issue-welcome-flag nil)
 (setq-default ispell-program-name "/usr/bin/aspell")
 (setq-default ispell-list-command "list")
-
+(setq ispell-dictionary "polish")
 
 ;; misc things
 ;; ----------------------------------------------------------------------------
