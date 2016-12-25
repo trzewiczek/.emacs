@@ -25,6 +25,7 @@
     markdown-mode
     marmalade
     org
+    org-bullets
     python
     rainbow-mode
     smex
@@ -144,6 +145,11 @@
 (setq org-agenda-files (cons org-mode-env '()))
 (setq org-startup-indented t)
 
+(add-hook 'org-mode-hook
+	  (lambda ()
+	    (org-bullets-mode 1)))
+
+(setq org-ellipsis " ⬎")
 
 ;; yasnippet configuration
 ;; ----------------------------------------------------------------------------
