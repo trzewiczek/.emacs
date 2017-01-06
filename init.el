@@ -128,10 +128,13 @@
 
 ;; org-mode configuration
 ;; ----------------------------------------------------------------------------
-(defvar org-mode-env "~/org")
+(defvar org-mode-env "~/Dropbox/org")
 
 ;; clean view
 (setq org-startup-indented t)
+(add-hook 'org-mode-hook (lambda ()
+			   (visual-line-mode)
+			   (org-indent-mode)))
 
 ;; english spelling and style
 (add-hook 'org-mode-hook (lambda () (flyspell-mode)))
