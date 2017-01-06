@@ -148,6 +148,13 @@
 (setq org-agenda-files (cons org-mode-env '()))
 (setq org-startup-indented t)
 
+;; capture settings
+(setq org-default-notes-file "~/Dropbox/org/index.org")
+(define-key global-map "\C-cc" 'org-capture)
+(setq org-capture-templates
+      '(("t" "Todo" entry (file+headline "" "Różne")
+         "* TODO %?")))
+
 (add-hook 'org-mode-hook
 	  (lambda ()
 	    (org-bullets-mode 1)))
